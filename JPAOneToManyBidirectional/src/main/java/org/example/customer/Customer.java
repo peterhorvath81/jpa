@@ -32,9 +32,13 @@ public class Customer {
     @Email
     private String email;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "address_id")
     private Address address;
+
+    @NotNull
+    @Column(name = "store_id")
+    private Integer storeId;
 
     public Customer() {
 
@@ -80,27 +84,36 @@ public class Customer {
         this.address = address;
     }
 
+    public Integer getStoreId() {
+        return storeId;
+    }
+
+    public void setStoreId(Integer storeId) {
+        this.storeId = storeId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Customer customer = (Customer) o;
-        return Objects.equals(customerId, customer.customerId) && Objects.equals(firstName, customer.firstName) && Objects.equals(lastName, customer.lastName) && Objects.equals(email, customer.email) && Objects.equals(address, customer.address);
+        return Objects.equals(customerId, customer.customerId) && Objects.equals(firstName, customer.firstName) && Objects.equals(lastName, customer.lastName) && Objects.equals(email, customer.email) && Objects.equals(address, customer.address) && Objects.equals(storeId, customer.storeId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(customerId, firstName, lastName, email, address);
+        return Objects.hash(customerId, firstName, lastName, email, address, storeId);
     }
 
     @Override
     public String toString() {
         return "Customer{" +
-                "customerId=" + customerId +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                ", address=" + address +
-                '}';
+          "customerId=" + customerId +
+          ", firstName='" + firstName + '\'' +
+          ", lastName='" + lastName + '\'' +
+          ", email='" + email + '\'' +
+//          ", address=" + address +
+          ", storeId=" + storeId +
+          '}';
     }
 }

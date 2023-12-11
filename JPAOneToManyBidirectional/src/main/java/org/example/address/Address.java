@@ -36,10 +36,15 @@ public class Address {
     @Size(max=20)
     private String phone;
 
-    @OneToMany
+    @OneToMany(mappedBy = "address", cascade = CascadeType.ALL, orphanRemoval = true)
+//    @JoinColumn(name = "address_id", referencedColumnName = "address_id")
     private List<Customer> customerList;
 
-    public Address(Integer addressId, String address, String address2, String district, String postalCode, String phone, List<Customer> customerList) {
+    @NotNull
+    @Column(name = "city_id")
+    private Integer cityId;
+
+    public Address(Integer addressId, String address, String address2, String district, String postalCode, String phone, List<Customer> customerList, Integer cityId) {
         this.addressId = addressId;
         this.address = address;
         this.address2 = address2;
@@ -47,6 +52,7 @@ public class Address {
         this.postalCode = postalCode;
         this.phone = phone;
         this.customerList = customerList;
+        this.cityId = cityId;
     }
 
     public Address() {
@@ -109,30 +115,38 @@ public class Address {
         this.customerList = customerList;
     }
 
+    public Integer getCityId() {
+        return cityId;
+    }
+
+    public void setCityId(Integer cityId) {
+        this.cityId = cityId;
+    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Address addressC = (Address) o;
-        return Objects.equals(addressId, addressC.addressId) && Objects.equals(address, addressC.address) && Objects.equals(address2, addressC.address2) && Objects.equals(district, addressC.district) && Objects.equals(postalCode, addressC.postalCode) && Objects.equals(phone, addressC.phone) && Objects.equals(customerList, addressC.customerList);
+        Address address1 = (Address) o;
+        return Objects.equals(addressId, address1.addressId) && Objects.equals(address, address1.address) && Objects.equals(address2, address1.address2) && Objects.equals(district, address1.district) && Objects.equals(postalCode, address1.postalCode) && Objects.equals(phone, address1.phone) && Objects.equals(customerList, address1.customerList) && Objects.equals(cityId, address1.cityId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(addressId, address, address2, district, postalCode, phone, customerList);
+        return Objects.hash(addressId, address, address2, district, postalCode, phone, customerList, cityId);
     }
 
     @Override
     public String toString() {
         return "Address{" +
-                "address_id=" + addressId +
-                ", address='" + address + '\'' +
-                ", address2='" + address2 + '\'' +
-                ", distinct='" + district + '\'' +
-                ", postal_code='" + postalCode + '\'' +
-                ", phone='" + phone + '\'' +
-                ", customerList=" + customerList +
-                '}';
+          "addressId=" + addressId +
+          ", address='" + address + '\'' +
+          ", address2='" + address2 + '\'' +
+          ", district='" + district + '\'' +
+          ", postalCode='" + postalCode + '\'' +
+          ", phone='" + phone + '\'' +
+//          ", customerList=" + customerList +
+          ", cityId=" + cityId +
+          '}';
     }
 }
