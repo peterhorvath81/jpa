@@ -10,21 +10,15 @@ public abstract class AbstractGenericDao<T>  implements GenericDao<T> {
 
   private static final String PERSISTENCE_UNIT_NAME = "dvdrental";
 
-  private static final EntityManagerFactory entityManagerFactory;
+  private static final EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
 
-  private static EntityManager entityManager;
+  private static EntityManager entityManager = entityManagerFactory.createEntityManager();
 
   private Class<T> entityClass;
 
   protected AbstractGenericDao(Class<T> entityClass) {
     this.entityClass = entityClass;
   }
-
-  static {
-    entityManagerFactory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
-    entityManager = entityManagerFactory.createEntityManager();
-  }
-
 
   public T getById(Integer id) {
     checkEntityManager();

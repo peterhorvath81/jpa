@@ -45,7 +45,7 @@ public class AddressDaoTest {
     }
 
     @Test
-    public void shouldFindByProprty() {
+    public void shouldFindByProperty() {
         List<Address> addressList = addressDao.findByProperty("city_id", 300);
         addressList.forEach(System.out::println);
     }
