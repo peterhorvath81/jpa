@@ -2,8 +2,8 @@ package org.example.util;
 
 import java.util.List;
 
-public interface GenericDao<T, K>{
-  T getById(K id);
+public interface GenericDao<T>{
+  T getById(Integer id);
 
   List<T> getAll();
 
@@ -11,7 +11,7 @@ public interface GenericDao<T, K>{
 
   void delete(T entity);
 
-  void update(K id, String propertyName, Object propertyValue);
+  void update(Integer id, String propertyName, Object propertyValue);
 
   List<T> findByProperty(String propertyName, Object propertyValue);
 }
