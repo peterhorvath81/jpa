@@ -41,6 +41,10 @@ public class EntityManagerUtil {
         getEntityManager().remove(object);
     }
 
+    public static void commit() {
+        getEntityManager().getTransaction().commit();
+    }
+
 
 
 

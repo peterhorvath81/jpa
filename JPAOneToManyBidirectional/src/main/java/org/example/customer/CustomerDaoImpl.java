@@ -2,18 +2,24 @@ package org.example.customer;
 
 import org.example.util.AbstractGenericDao;
 
+import java.lang.reflect.Field;
+
 public class CustomerDaoImpl extends AbstractGenericDao<Customer> {
 
     private static CustomerDaoImpl instance;
 
-    public static synchronized CustomerDaoImpl getInstance() {
+    public static CustomerDaoImpl getInstance() {
         if (instance == null) {
-            instance = new CustomerDaoImpl(Customer.class);
+            synchronized (CustomerDaoImpl.class) {
+                if (instance == null) {
+                    instance = new CustomerDaoImpl();
+                }
+            }
         }
         return instance;
     }
 
-    private CustomerDaoImpl(Class<Customer> entityClass) {
-        super(entityClass);
+    private CustomerDaoImpl() {
+        super();
     }
 }

@@ -12,10 +12,7 @@ public class CustomerDaoTest {
 
   private CustomerDaoImpl customerDao = CustomerDaoImpl.getInstance();
 
-
-
-
-  @Test
+    @Test
   public void shouldFindCustomerById() {
     Customer customer = customerDao.getById(ID);
     System.out.println(customer.getFirstName());

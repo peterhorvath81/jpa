@@ -6,13 +6,18 @@ public class AddressDaoImpl extends AbstractGenericDao<Address> {
 
     private static AddressDaoImpl instance;
 
-    public static synchronized AddressDaoImpl getInstance() {
+    public static AddressDaoImpl getInstance() {
         if (instance == null) {
-            instance = new AddressDaoImpl(Address.class);
+            synchronized (AddressDaoImpl.class) {
+                if (instance == null) {
+                    instance = new AddressDaoImpl();
+                }
+            }
         }
         return instance;
     }
-    private AddressDaoImpl(Class<Address> entityClass) {
-        super(entityClass);
+    private AddressDaoImpl() {
+        super();
     }
+
 }
